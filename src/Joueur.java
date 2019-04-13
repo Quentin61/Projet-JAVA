@@ -38,9 +38,5 @@ public abstract class Joueur
     {
         return this.couleur;
     }
-    public Pion choisirPion(int numeroPion,Plateau plateau)
-    {
-
-    }
-
+    public abstract Pion choisirPion(int numeroPion,Plateau plateau);
 }

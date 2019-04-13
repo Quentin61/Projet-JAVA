@@ -16,13 +16,8 @@ public abstract class Case
     {
         this.chevaux.add(nouveauCheval);
     }
-    public boolean peutPasser(Pion pion)
-    {
+    public abstract boolean peutPasser(Pion pion);
 
-    }
-    public boolean peutSarreter(Pion pion)
-    {
-
-    }
+    public abstract boolean peutSArreter(Pion pion);
 
 }

@@ -12,14 +12,8 @@ public abstract class CaseColoree extends Case
     }
 
     @Override
-    public boolean peutPasser(Pion pion)
-    {
-        return super.peutPasser(pion);
-    }
+    public abstract boolean peutPasser(Pion pion);
 
     @Override
-    public boolean peutSarreter(Pion pion)
-    {
-        return super.peutSarreter(pion);
-    }
+    public abstract boolean peutSArreter(Pion pion);
 }

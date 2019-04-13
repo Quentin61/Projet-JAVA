@@ -1,6 +1,6 @@
 public class Pion
 {
-    private String id;
+    private final String id;
     private Couleur couleur;
 
     public Pion(String id, Couleur couleur)
