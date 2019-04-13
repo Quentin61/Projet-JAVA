@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public abstract class Case
 {
-    ArrayList<Pion> chevaux;
+    protected ArrayList<Pion> chevaux;
     public Case()
     {
         this.chevaux=new ArrayList<Pion>();
