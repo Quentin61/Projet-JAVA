@@ -11,15 +11,18 @@ public class Partie
         this.de=(int)(Math.random()*7);
         this.joueurs=new ArrayList<Joueur>();
     }
-    public void initialiserJoueur(int nombreDeJoueursHumain)
+    public void initialiserJoueur(int nombreDeJoueurs)
     {
-
+        for(int i=0; i<nombreDeJoueurs;i++)
+        {
+            this.joueurs.add(new JoueurHumain("joueur", Couleur.values()[i]));
+        }
     }
     public void initialiserPlateau()
     {
-
+        this.plateau=new Plateau();
     }
-    public int  lanceDe()
+    private int  lanceDe()
     {
         this.de=(int)(Math.random()*7);
         return this.de;
@@ -48,8 +51,15 @@ public class Partie
     {
         return this.joueurs;
     }
-    public void mangerLesPions(Case CaseManger)
+    private void mangerLesPions(Case CaseManger)
     {
-
+        for(int i=0;i<CaseManger.getChevaux().size();i++)
+        {
+            if (this.plateau.getEcurie().get(i).getCouleur()==CaseManger.getChevaux().get(i).getCouleur())
+            {
+                this.plateau.getEcurie().get(i).ajouteCheval(CaseManger.getChevaux().get(i));
+            }
+            CaseManger.getChevaux().clear();
+        }
     }
 }

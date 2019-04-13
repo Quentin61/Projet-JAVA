@@ -17,7 +17,6 @@ public abstract class Joueur
     {
         return this.caseDeDepart;
     }
-
     public void setCaseDeDepart(Case caseDeDepart)
     {
         this.caseDeDepart = caseDeDepart;
