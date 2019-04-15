@@ -13,4 +13,8 @@ public class Pion
     {
         return this.couleur;
     }
+    public String getId()
+    {
+        return this.id;
+    }
 }

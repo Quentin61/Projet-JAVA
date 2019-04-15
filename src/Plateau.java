@@ -2,9 +2,9 @@ import java.util.ArrayList;
 
 public class Plateau
 {
-    private ArrayList<CaseDeChemin> chemin;
-    private ArrayList<CaseEcurie> ecurie;
-    private ArrayList<ArrayList<CaseDEchelle>> echelles;
+    private ArrayList<CaseDeChemin> chemin = new ArrayList<CaseDeChemin>();
+    private ArrayList<CaseEcurie> ecurie = new ArrayList<CaseEcurie>();
+    private ArrayList<ArrayList<CaseDEchelle>> echelles = new ArrayList<ArrayList<CaseDEchelle>>();
 
     public Plateau()
     {
@@ -46,7 +46,6 @@ public class Plateau
     }
     public void deplacerPion(Pion pionAdeplacer,Case caseDeDeplacement)
     {
-        //Mettre enlever pion de l'ancienne case//
         caseDeDeplacement.ajouteCheval(pionAdeplacer);
     }
 }

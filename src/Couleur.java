@@ -2,8 +2,9 @@ public enum Couleur
 {
     JAUNE('J'),
     BLEU('B'),
-    VERT('V'),
-    ROUGE('R');
+    ROUGE('R'),
+    VERT('V');
+
 
     private char symbol;
 

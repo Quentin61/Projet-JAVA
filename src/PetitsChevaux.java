@@ -6,7 +6,9 @@ public class PetitsChevaux
     }
     public static void main(String argc[])
     {
-
+        Partie partie= new Partie();
+        partie.initialiserPlateau();
+        partie.initialiserJoueur(4);
     }
 
 }
