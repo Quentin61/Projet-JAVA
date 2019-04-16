@@ -10,14 +10,18 @@ public class JoueurHumain extends Joueur
     @Override
     public Pion choisirPion(int valeurDe, Plateau plateau)
     {
-        ArrayList<Pion> pionBougeable= new ArrayList<Pion>();
+        ArrayList<Pion> pionBougeables= new ArrayList<Pion>();
+        Pion pionjouer=null;
         for(int i=0;i<this.getChevaux().size();i++)
         {
             for(int j=0;j<plateau.getEcurie().size();j++)
             {
-                if(plateau.getEcurie().get(j).peutPasser(this.getChevaux().get(i)) && valeurDe==6)
+                for(int e=0;e<plateau.getEcurie().get(j).getChevaux().size();e++)
                 {
-                    pionBougeable.add(this.getChevaux().get(i));
+                    if(plateau.getEcurie().get(j).peutPasser(this.getChevaux().get(i)) && valeurDe==6 && this.getChevaux().get(i)==plateau.getEcurie().get(j).getChevaux().get(e))
+                    {
+                        pionBougeables.add(this.getChevaux().get(i));
+                    }
                 }
             }
             /*for(int k=0;k<plateau.getChemin().size();k++)
@@ -51,13 +55,15 @@ public class JoueurHumain extends Joueur
                 }
             }*/
         }
-        if(pionBougeable.isEmpty())
+        if(pionBougeables.isEmpty())
         {
             return null;
         }
         else
         {
-            return pionBougeable.get(1);
+            pionjouer=pionBougeables.get(0);
+            pionBougeables.clear();
+            return pionjouer;
         }
     }
 }

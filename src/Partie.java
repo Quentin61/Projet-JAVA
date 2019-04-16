@@ -8,7 +8,7 @@ public class Partie
     private ArrayList<Joueur> joueurs = new ArrayList<Joueur>();
     public Partie()
     {
-        this.de=(int)(Math.random()*7);
+        this.de=(int)(Math.random()*6+1);
     }
     public void initialiserJoueur(int nombreDeJoueurs)
     {
@@ -35,7 +35,7 @@ public class Partie
     }
     private int  lanceDe()
     {
-        this.de=(int)(Math.random()*7);
+        this.de=(int)(Math.random()*6+1);
         return this.de;
     }
     public void JouerUnTour()
@@ -74,7 +74,7 @@ public class Partie
                     if(pionJouer==this.plateau.getEcurie().get(j).getChevaux().get(k))
                     {
                         this.plateau.getEcurie().get(j).getChevaux().remove(k);
-                        if(!this.joueurCourant.getCaseDeDepart().getChevaux().isEmpty())
+                        if(!this.joueurCourant.getCaseDeDepart().peutSArreter(pionJouer))
                         {
                             mangerLesPions(this.joueurCourant.getCaseDeDepart());
                         }
