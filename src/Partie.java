@@ -15,7 +15,7 @@ public class Partie
         for(int i=0; i<nombreDeJoueurs;i++)
         {
             this.joueurs.add(new JoueurHumain("joueur "+(i+1), Couleur.values()[i]));
-            this.joueurs.get(i).setCaseDeDepart(this.plateau.getChemin().get(i*14));
+            this.joueurs.get(i).setCaseDeDepart(this.plateau.getChemin().get(i*13));
             for(int k=0;k<this.plateau.getEcurie().size();k++)
             {
                 for(int j=0;j<this.joueurs.get(i).getChevaux().size();j++)
@@ -39,8 +39,10 @@ public class Partie
         return this.de;
     }
     public void JouerUnTour()
-    {/*
+    {
+        System.out.println(this.joueurCourant.getNom()+" joue !");
         lanceDe();
+        System.out.println("le "+this.joueurCourant.getNom()+" joue et fait un "+this.de);
         Pion pionJouer=this.joueurCourant.choisirPion(this.de,this.plateau);
         if(pionJouer==null)
         {
@@ -49,13 +51,15 @@ public class Partie
             {
                 if(this.joueurCourant==joueurs.get(i))
                 {
-                    if(i==4)
+                    if(i==3)
                     {
-                        this.joueurCourant=joueurs.get(1);
+                        this.joueurCourant=joueurs.get(0);
+                        break;
                     }
                     else
                     {
                         this.joueurCourant=joueurs.get(i+1);
+                        break;
                     }
                 }
             }
@@ -70,12 +74,48 @@ public class Partie
                     if(pionJouer==this.plateau.getEcurie().get(j).getChevaux().get(k))
                     {
                         this.plateau.getEcurie().get(j).getChevaux().remove(k);
+                        if(!this.joueurCourant.getCaseDeDepart().getChevaux().isEmpty())
+                        {
+                            mangerLesPions(this.joueurCourant.getCaseDeDepart());
+                        }
                         this.plateau.deplacerPion(pionJouer,this.joueurCourant.getCaseDeDepart());
+                    }
+                }
+            }/*
+            for(int l=0;l<this.plateau.getChemin().size();l++)
+            {
+                for(int m=0;m<this.plateau.getChemin().get(l).getChevaux().size();m++)
+                {
+                    if(pionJouer==this.plateau.getChemin().get(l).getChevaux().get(m))
+                    {
+                        this.plateau.getChemin().get(l).getChevaux().remove(m);
+                        if(!this.plateau.getChemin().get(l+this.de).getChevaux().isEmpty())
+                        {
+                            mangerLesPions(this.plateau.getChemin().get(l+this.de));
+                        }
+                        this.plateau.getChemin().get(l+this.de).ajouteCheval(pionJouer);
+                    }
+                }
+            }*/
+            this.plateau.afficher();
+            for(int i=0;i<joueurs.size();i++)
+            {
+                if(this.joueurCourant==joueurs.get(i))
+                {
+                    if(i==3)
+                    {
+                        this.joueurCourant=joueurs.get(0);
+                        break;
+                    }
+                    else
+                    {
+                        this.joueurCourant=joueurs.get(i+1);
+                        break;
                     }
                 }
             }
 
-        }*/
+        }
     }
     public boolean estPartieTermine()
     {

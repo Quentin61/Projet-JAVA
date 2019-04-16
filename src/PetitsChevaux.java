@@ -9,6 +9,10 @@ public class PetitsChevaux
         Partie partie= new Partie();
         partie.initialiserPlateau();
         partie.initialiserJoueur(4);
+        while (!partie.estPartieTermine())
+        {
+            partie.JouerUnTour();
+        }
     }
 
 }
