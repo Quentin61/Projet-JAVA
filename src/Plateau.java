@@ -2,10 +2,27 @@ import java.util.ArrayList;
 
 public class Plateau
 {
+    /**
+     * liste des cases qui composent le tour du plateau (56 case)
+     * @see CaseDeChemin
+     */
     private ArrayList<CaseDeChemin> chemin = new ArrayList<CaseDeChemin>();
+
+    /**
+     * liste des cases d'écurie (4 cases)
+     * @see CaseEcurie
+     */
     private ArrayList<CaseEcurie> ecurie = new ArrayList<CaseEcurie>();
+
+    /**
+     * liste des echelles composées de case (6 cases)
+     * @see CaseDEchelle
+     */
     private ArrayList<ArrayList<CaseDEchelle>> echelles = new ArrayList<ArrayList<CaseDEchelle>>();
 
+    /**
+     * Constructeur de plateau
+     */
     public Plateau()
     {
         for(int i=0;i<56;i++)
@@ -26,18 +43,39 @@ public class Plateau
         }
     }
 
+    /**
+     * retourne la liste des cases d'écuries
+     * @see CaseEcurie
+     * @return retourne une ArrayList des cases d'écuries
+     */
     public ArrayList<CaseEcurie> getEcurie()
     {
         return this.ecurie;
     }
+
+    /**
+     * retourne la liste des cases du chemin
+     * @see CaseDEchelle
+     * @return retourne une ArrayListe des cases de chemin
+     */
     public ArrayList<CaseDeChemin> getChemin()
     {
         return this.chemin;
     }
+
+    /**
+     * retourne la liste des echelles composées de case d'echelles
+     * @see CaseDEchelle
+     * @return retourne une ArrayList d'ArrayList de case d'echelles
+     */
     public ArrayList<ArrayList<CaseDEchelle>> getEchelles()
     {
         return this.echelles;
     }
+
+    /**
+     * affiche le plateau de jeu avec les ecuries de chaques joueurs, le chemin et les echelles de chaques joueurs
+     */
     public void afficher()
     {
         String ecurie1="";
@@ -154,6 +192,14 @@ public class Plateau
         System.out.println("echelle 3 : "+couloir3);
         System.out.println("echelle 4 : "+couloir4);
     }
+
+    /**
+     * deplace le pion dans une liste d'une case
+     * @see Case
+     * @see Pion
+     * @param pionAdeplacer elle prend en paramêtre le pion a déplacer
+     * @param caseDeDeplacement elle prend en paramëtre la case qui va acceuillir le pion
+     */
     public void deplacerPion(Pion pionAdeplacer,Case caseDeDeplacement)
     {
         caseDeDeplacement.ajouteCheval(pionAdeplacer);

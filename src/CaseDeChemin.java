@@ -1,5 +1,9 @@
 public class CaseDeChemin extends Case
 {
+    /**
+     * constructeur qui hérite de Case
+     * @see Case
+     */
     public CaseDeChemin()
     {
         super();
@@ -9,12 +13,9 @@ public class CaseDeChemin extends Case
     public boolean peutPasser(Pion pion)
     {
         boolean peutPasser=false;
-        for(int i=0;i<this.getChevaux().size();i++)
+        if(this.getChevaux().isEmpty())
         {
-            if (this.getChevaux().get(i)==null)
-            {
-                peutPasser=true;
-            }
+            peutPasser=true;
         }
         return peutPasser;
     }
@@ -23,13 +24,13 @@ public class CaseDeChemin extends Case
     public boolean peutSArreter(Pion pion)
     {
         boolean peutSArreter=false;
+        if(this.getChevaux().isEmpty())
+        {
+            peutSArreter=true;
+        }
         for(int i=0;i<this.getChevaux().size();i++)
         {
-            if(this.getChevaux().get(i)==null)
-            {
-                peutSArreter=true;
-            }
-            else if (this.getChevaux().get(i).getCouleur()==pion.getCouleur())
+            if (this.getChevaux().get(i).getCouleur()==pion.getCouleur())
             {
                 peutSArreter=true;
             }

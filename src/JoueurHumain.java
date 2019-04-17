@@ -18,30 +18,43 @@ public class JoueurHumain extends Joueur
             {
                 for(int e=0;e<plateau.getEcurie().get(j).getChevaux().size();e++)
                 {
-                    if(plateau.getEcurie().get(j).peutPasser(this.getChevaux().get(i)) && valeurDe==6 && this.getChevaux().get(i)==plateau.getEcurie().get(j).getChevaux().get(e))
+                    if(valeurDe==6 && plateau.getEcurie().get(j).getChevaux().contains(this.getChevaux().get(i)))
                     {
                         pionBougeables.add(this.getChevaux().get(i));
                     }
                 }
             }
-            /*for(int k=0;k<plateau.getChemin().size();k++)
+            for(int k=0;k<plateau.getChemin().size();k++)
             {
                 for(int l=0;l<plateau.getChemin().get(k).getChevaux().size();l++)
                 {
-                    if(plateau.getChemin().get(k).getChevaux().get(l)==this.getChevaux().get(i))
+                    if(plateau.getChemin().get(k).getChevaux().contains(this.getChevaux().get(i)))
                     {
-                        while()
+                        for(int m=1;m<valeurDe+1;m++)
                         {
-                            if()
-                        }
-                        if(plateau.getChemin().get(k+valeurDe).peutSArreter(this.getChevaux().get(i)))
-                        {
-
+                            if(m==valeurDe)
+                            {
+                                pionBougeables.add(this.getChevaux().get(i));
+                            }
+                            else if(k+m+1<=55)
+                            {
+                                if (!plateau.getChemin().get(k+m).peutPasser(this.getChevaux().get(i)))
+                                {
+                                    break;
+                                }
+                            }
+                            if(k+m>55)
+                            {
+                                if (!plateau.getChemin().get(k+m-55).peutPasser(this.getChevaux().get(i)))
+                                {
+                                    break;
+                                }
+                            }
                         }
                     }
                 }
-            }
-            for(int m=0;m<plateau.getEchelles().size();m++)
+            }/*
+             for(int m=0;m<plateau.getEchelles().size();m++)
             {
                 if(plateau.getEchelles().get(m).get(1).getCouleur()==this.getChevaux().get(i).getCouleur())
                 {

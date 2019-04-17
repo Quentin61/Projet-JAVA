@@ -1,5 +1,11 @@
 public class CaseEcurie extends CaseColoree
 {
+    /**
+     * constructeur qui hérite de CaseColoree
+     * @see CaseColoree
+     * @see Couleur
+     * @param couleur prend en paramêtre un type couleur
+     */
     public CaseEcurie(Couleur couleur)
     {
         super(couleur);
