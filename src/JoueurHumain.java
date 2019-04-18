@@ -2,11 +2,16 @@ import java.util.ArrayList;
 
 public class JoueurHumain extends Joueur
 {
+    /**
+     * Constructeur de JoueurHumain
+     * @param nom il prend en paramètre un String
+     * @param couleur il prend en paramètre un type Couleur
+     * @see Couleur
+     */
     public JoueurHumain(String nom,Couleur couleur)
     {
         super(nom,couleur);
     }
-
     @Override
     public Pion choisirPion(int valeurDe, Plateau plateau)
     {
@@ -76,7 +81,7 @@ public class JoueurHumain extends Joueur
                                 {
                                     pionBougeables.add(this.getChevaux().get(i));
                                 }
-                                else if (!plateau.getChemin().get(k+m-55).peutPasser(this.getChevaux().get(i)) || plateau.getChemin().get(k+m-55)==this.getCaseDeDepart())
+                                else if (!plateau.getChemin().get(k+m-56).peutPasser(this.getChevaux().get(i)) || plateau.getChemin().get(k+m-56)==this.getCaseDeDepart())
                                 {
                                     break;
                                 }

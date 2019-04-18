@@ -4,7 +4,7 @@ public class CaseDEchelle extends CaseColoree
      * contructeur qui hérite de CaseColoree
      * @see CaseColoree
      * @see Couleur
-     * @param couleur prend en paramêtre un type Couleur
+     * @param couleur prend en paramètre un type Couleur
      */
     public CaseDEchelle(Couleur couleur)
     {

@@ -1,9 +1,17 @@
 public class PetitsChevaux
 {
+    /**
+     * Constructeur vide du jeu
+     */
     public PetitsChevaux()
     {
 
     }
+
+    /**
+     * méthode main du programme
+     * @param argc
+     */
     public static void main(String argc[])
     {
         Joueur JoueurQuiRejoue;

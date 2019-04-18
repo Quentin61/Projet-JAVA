@@ -37,7 +37,7 @@ public class Partie
 
     /**
      * initialise tous les joueurs de la partie (instanciation) et leurs chevaux
-     * @param nombreDeJoueurs elle prend en paramêtre le nombre de joueurs humains à instancier
+     * @param nombreDeJoueurs elle prend en paramètre le nombre de joueurs humains à instancier
      */
     public void initialiserJoueur(int nombreDeJoueurs)
     {

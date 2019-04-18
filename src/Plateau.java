@@ -64,9 +64,9 @@ public class Plateau
     }
 
     /**
-     * retourne la liste des echelles composées de case d'echelles
+     * retourne la liste des echelles composées de cases d'echelles
      * @see CaseDEchelle
-     * @return retourne une ArrayList d'ArrayList de case d'echelles
+     * @return retourne une ArrayList d'ArrayList de cases d'echelles
      */
     public ArrayList<ArrayList<CaseDEchelle>> getEchelles()
     {
@@ -197,8 +197,8 @@ public class Plateau
      * deplace le pion dans une liste d'une case
      * @see Case
      * @see Pion
-     * @param pionAdeplacer elle prend en paramêtre le pion a déplacer
-     * @param caseDeDeplacement elle prend en paramëtre la case qui va acceuillir le pion
+     * @param pionAdeplacer elle prend en paramètre le pion a déplacer
+     * @param caseDeDeplacement elle prend en paramètre la case qui va acceuillir le pion
      */
     public void deplacerPion(Pion pionAdeplacer,Case caseDeDeplacement)
     {

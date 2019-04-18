@@ -1,15 +1,15 @@
 public abstract class CaseColoree extends Case
 {
     /**
-     * La couleur de case pour les cases echelle et les cases ecurie
+     * La couleur de case pour les cases echelle et les cases écurie
      */
     private Couleur couleur;
 
     /**
-     * Constructeur qui prend les mêmes attributs que Case avec un la couleur en paraètre suplémentaire
+     * Constructeur qui prend les mêmes attributs que Case avec un la couleur en paramètre suplémentaire
      * @see Case
      * @see Couleur
-     * @param couleur elle prend en paramètre une couleur de l'enumeration Couleur
+     * @param couleur elle prend en paramètre une couleur de l'énumeration Couleur
      */
     public CaseColoree(Couleur couleur)
     {
