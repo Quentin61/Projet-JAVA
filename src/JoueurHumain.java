@@ -36,16 +36,16 @@ public class JoueurHumain extends Joueur
                             {
                                 pionBougeables.add(this.getChevaux().get(i));
                             }
-                            else if(k+m+1<=55)
+                            else if(k+m<=55)
                             {
-                                if (!plateau.getChemin().get(k+m).peutPasser(this.getChevaux().get(i)))
+                                if (!plateau.getChemin().get(k+m).peutPasser(this.getChevaux().get(i)) || plateau.getChemin().get(k+m)==this.getCaseDeDepart())
                                 {
                                     break;
                                 }
                             }
                             if(k+m>55)
                             {
-                                if (!plateau.getChemin().get(k+m-55).peutPasser(this.getChevaux().get(i)))
+                                if (!plateau.getChemin().get(k+m-55).peutPasser(this.getChevaux().get(i)) || plateau.getChemin().get(k+m-55)==this.getCaseDeDepart())
                                 {
                                     break;
                                 }

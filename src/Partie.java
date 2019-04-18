@@ -116,6 +116,11 @@ public class Partie
         }
         switch(endroitPionJouer)
         {
+            case (0):
+            {
+                System.out.println("Vous ne pouvez pas jouer de pions");
+                break;
+            }
             case (1):
             {
                 for (int j = 0; j < this.plateau.getEcurie().size(); j++) {
@@ -249,13 +254,16 @@ public class Partie
      */
     private void mangerLesPions(Case CaseManger)
     {
-        for(int i=0;i<CaseManger.getChevaux().size();i++)
+        for(int j=0;j<plateau.getEcurie().size();j++)
         {
-            if (this.plateau.getEcurie().get(i).getCouleur()==CaseManger.getChevaux().get(i).getCouleur())
+            for(int i=0;i<CaseManger.getChevaux().size();i++)
             {
-                this.plateau.getEcurie().get(i).ajouteCheval(CaseManger.getChevaux().get(i));
+                if (this.plateau.getEcurie().get(j).getCouleur()==CaseManger.getChevaux().get(i).getCouleur())
+                {
+                    this.plateau.getEcurie().get(j).ajouteCheval(CaseManger.getChevaux().get(i));
+                }
             }
-            CaseManger.getChevaux().clear();
         }
+        CaseManger.getChevaux().clear();
     }
 }
