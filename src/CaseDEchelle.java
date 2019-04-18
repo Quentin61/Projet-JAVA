@@ -15,7 +15,7 @@ public class CaseDEchelle extends CaseColoree
     public boolean peutPasser(Pion pion)
     {
         Boolean peutPasser=false;
-        if(this.getChevaux().get(1)==null)
+        if(this.getChevaux().isEmpty())
         {
             peutPasser=true;
         }
@@ -26,7 +26,7 @@ public class CaseDEchelle extends CaseColoree
     public boolean peutSArreter(Pion pion)
     {
         Boolean peutSArreter=false;
-        if(this.getChevaux().get(1)==null)
+        if(this.getChevaux().isEmpty())
         {
             peutSArreter=true;
         }

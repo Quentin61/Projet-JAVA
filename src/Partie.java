@@ -146,13 +146,41 @@ public class Partie
                     for (int m = 0; m < this.plateau.getChemin().get(l).getChevaux().size(); m++) {
                         if (this.plateau.getChemin().get(l).getChevaux().contains(pionJouer)) {
                             this.plateau.getChemin().get(l).getChevaux().remove(m);
-                            if (l + this.de > 55) {
+                            if(l+1<55)
+                            {
+                                if(this.getJoueurCourant().getCaseDeDepart()==this.plateau.getChemin().get(l+1))
+                                {
+                                    for(int o=0;o<this.plateau.getEchelles().size();o++)
+                                    {
+                                        if(this.plateau.getEchelles().get(o).get(0).getCouleur()==this.joueurCourant.getCouleur())
+                                        {
+                                            this.plateau.getEchelles().get(o).get(0).ajouteCheval(pionJouer);
+                                            pionDejaJouer=true;
+                                        }
+                                    }
+                                }
+                            }
+                            if (l+1>55)
+                            {
+                                if(this.getJoueurCourant().getCaseDeDepart()==this.plateau.getChemin().get(0))
+                                {
+                                    for(int o=0;o<this.plateau.getEchelles().size();o++)
+                                    {
+                                        if(this.plateau.getEchelles().get(o).get(0).getCouleur()==this.joueurCourant.getCouleur())
+                                        {
+                                            this.plateau.getEchelles().get(o).get(0).ajouteCheval(pionJouer);
+                                            pionDejaJouer=true;
+                                        }
+                                    }
+                                }
+                            }
+                            if (l + this.de > 55 && !pionDejaJouer) {
                                 if (!this.plateau.getChemin().get(l + this.de - 55).getChevaux().isEmpty()) {
                                     mangerLesPions(this.plateau.getChemin().get(l + this.de - 55));
                                 }
                                 this.plateau.getChemin().get(l + this.de - 55).ajouteCheval(pionJouer);
                                 pionDejaJouer=true;
-                            } else {
+                            } else if(l +this.de<=55 && !pionDejaJouer){
                                 if (!this.plateau.getChemin().get(l + this.de).getChevaux().isEmpty()) {
                                     mangerLesPions(this.plateau.getChemin().get(l + this.de));
                                 }
@@ -166,6 +194,24 @@ public class Partie
             }
             case (3):
             {
+                for(int i=0;i<this.plateau.getEchelles().size();i++)
+                {
+                    for(int j=0;j<this.plateau.getEchelles().get(i).size();j++)
+                    {
+                        if(this.plateau.getEchelles().get(i).get(j).getChevaux().contains(pionJouer) && !pionDejaJouer)
+                        {
+                            this.plateau.getEchelles().get(i).get(j).getChevaux().remove(pionJouer);
+                            this.plateau.getEchelles().get(i).get(j+1).ajouteCheval(pionJouer);
+                            if(this.plateau.getEchelles().get(i).get(j+1)==this.plateau.getEchelles().get(i).get(5))
+                            {
+                                this.plateau.getEchelles().get(i).get(j+1).getChevaux().remove(pionJouer);
+                                this.joueurCourant.getChevaux().remove(pionJouer);
+                                System.out.println("le pion a été retiré du jeu !");
+                            }
+                            pionDejaJouer=true;
+                        }
+                    }
+                }
                 break;
             }
         }
@@ -176,7 +222,7 @@ public class Partie
             {
                 if(this.joueurCourant==joueurs.get(i))
                 {
-                    if(i==3)
+                    if(i==this.joueurs.size()-1)
                     {
                         this.joueurCourant=joueurs.get(0);
                         break;
@@ -202,6 +248,7 @@ public class Partie
             if(this.joueurs.get(i).getChevaux().isEmpty())
             {
                 partieTerminer=true;
+                System.out.println("le "+this.joueurs.get(i).getNom()+" a gagné !");
             }
         }
         return partieTerminer;

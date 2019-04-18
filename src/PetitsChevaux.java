@@ -24,7 +24,7 @@ public class PetitsChevaux
                     {
                         if(partie.getJoueurCourant()==partie.getJoueurs().get(i))
                         {
-                            if(i==3)
+                            if(i==partie.getJoueurs().size()-1)
                             {
                                 partie.setJoueurCourant(partie.getJoueurs().get(0));
                                 break;

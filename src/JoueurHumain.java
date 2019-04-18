@@ -30,22 +30,53 @@ public class JoueurHumain extends Joueur
                 {
                     if(plateau.getChemin().get(k).getChevaux().contains(this.getChevaux().get(i)))
                     {
+                        if(k+1<=55)
+                        {
+                            if(plateau.getChemin().get(k+1)==this.getCaseDeDepart() && plateau.getChemin().get(k).getChevaux().contains(this.getChevaux().get(i)) && valeurDe==1)
+                            {
+                                for(int p=0;p<plateau.getEchelles().size();p++)
+                                {
+                                    if(this.getCouleur()==plateau.getEchelles().get(p).get(0).getCouleur() && plateau.getEchelles().get(p).get(0).getChevaux().isEmpty())
+                                    {
+                                        pionBougeables.add(this.getChevaux().get(i));
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if(plateau.getChemin().get(0)==this.getCaseDeDepart() && plateau.getChemin().get(k).getChevaux().contains(this.getChevaux().get(i)) && valeurDe==1)
+                            {
+                                for(int p=0;p<plateau.getEchelles().size();p++)
+                                {
+                                    if(this.getCouleur()==plateau.getEchelles().get(p).get(0).getCouleur() && plateau.getEchelles().get(p).get(0).getChevaux().isEmpty())
+                                    {
+                                        pionBougeables.add(this.getChevaux().get(i));
+                                    }
+                                }
+                            }
+                        }
                         for(int m=1;m<valeurDe+1;m++)
                         {
-                            if(m==valeurDe)
+
+                            if(k+m<=55)
                             {
-                                pionBougeables.add(this.getChevaux().get(i));
-                            }
-                            else if(k+m<=55)
-                            {
-                                if (!plateau.getChemin().get(k+m).peutPasser(this.getChevaux().get(i)) || plateau.getChemin().get(k+m)==this.getCaseDeDepart())
+                                if(m==valeurDe && plateau.getChemin().get(k+1)!=this.getCaseDeDepart())
+                                {
+                                    pionBougeables.add(this.getChevaux().get(i));
+                                }
+                                else if (!plateau.getChemin().get(k+m).peutPasser(this.getChevaux().get(i)) || plateau.getChemin().get(k+m)==this.getCaseDeDepart())
                                 {
                                     break;
                                 }
                             }
                             if(k+m>55)
                             {
-                                if (!plateau.getChemin().get(k+m-55).peutPasser(this.getChevaux().get(i)) || plateau.getChemin().get(k+m-55)==this.getCaseDeDepart())
+                                if(m==valeurDe && plateau.getChemin().get(0)!=this.getCaseDeDepart())
+                                {
+                                    pionBougeables.add(this.getChevaux().get(i));
+                                }
+                                else if (!plateau.getChemin().get(k+m-55).peutPasser(this.getChevaux().get(i)) || plateau.getChemin().get(k+m-55)==this.getCaseDeDepart())
                                 {
                                     break;
                                 }
@@ -53,20 +84,23 @@ public class JoueurHumain extends Joueur
                         }
                     }
                 }
-            }/*
+            }
              for(int m=0;m<plateau.getEchelles().size();m++)
             {
-                if(plateau.getEchelles().get(m).get(1).getCouleur()==this.getChevaux().get(i).getCouleur())
+                if(plateau.getEchelles().get(m).get(0).getCouleur()==this.getChevaux().get(i).getCouleur())
                 {
                     for(int n=0;n<plateau.getEchelles().get(m).size()-1;n++)
                     {
-                        if(plateau.getEchelles().get(m).get(n).getChevaux().get(1)==this.getChevaux().get(i) && plateau.getEchelles().get(m).get(n+1).peutSArreter(this.getChevaux().get(i)))
+                        if(!plateau.getEchelles().get(m).get(n).getChevaux().isEmpty())
                         {
-                            pionBougeable.add(this.getChevaux().get(i));
+                            if(plateau.getEchelles().get(m).get(n).getChevaux().get(0)==this.getChevaux().get(i) && plateau.getEchelles().get(m).get(n+1).peutSArreter(this.getChevaux().get(i)) && valeurDe==n+2)
+                            {
+                                pionBougeables.add(this.getChevaux().get(i));
+                            }
                         }
                     }
                 }
-            }*/
+            }
         }
         if(pionBougeables.isEmpty())
         {
