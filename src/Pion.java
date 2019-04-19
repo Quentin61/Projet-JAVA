@@ -32,4 +32,9 @@ public class Pion
     {
         return this.couleur;
     }
+
+    public String toString()
+    {
+        return this.id;
+    }
 }

@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class JoueurHumain extends Joueur
 {
@@ -21,12 +22,9 @@ public class JoueurHumain extends Joueur
         {
             for(int j=0;j<plateau.getEcurie().size();j++)
             {
-                for(int e=0;e<plateau.getEcurie().get(j).getChevaux().size();e++)
+                if(valeurDe==6 && plateau.getEcurie().get(j).getChevaux().contains(this.getChevaux().get(i)))
                 {
-                    if(valeurDe==6 && plateau.getEcurie().get(j).getChevaux().contains(this.getChevaux().get(i)))
-                    {
-                        pionBougeables.add(this.getChevaux().get(i));
-                    }
+                    pionBougeables.add(this.getChevaux().get(i));
                 }
             }
             for(int k=0;k<plateau.getChemin().size();k++)
@@ -113,7 +111,21 @@ public class JoueurHumain extends Joueur
         }
         else
         {
-            pionjouer=pionBougeables.get(0);
+            System.out.println("Quel pion voulez-vous bouger ? : ");
+            for(int i=0;i<pionBougeables.size();i++)
+            {
+                System.out.println((i+1)+" - " +pionBougeables.get(i));
+            }
+            Scanner scPion = new Scanner(System.in);
+            System.out.print("Votre choix : ");
+            int PionChoisie = scPion.nextInt();
+            while(PionChoisie<1||PionChoisie>pionBougeables.size())
+            {
+                System.out.println(" Le pion que vous avez choisi n'est pas bougeable");
+                System.out.print("Votre choix : ");
+                PionChoisie = scPion.nextInt();
+            }
+            pionjouer=pionBougeables.get(PionChoisie-1);
             pionBougeables.clear();
             return pionjouer;
         }

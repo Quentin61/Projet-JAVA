@@ -1,4 +1,4 @@
-import org.jetbrains.annotations.NotNull;
+import java.util.Scanner;
 
 import java.util.ArrayList;
 
@@ -43,7 +43,10 @@ public class Partie
     {
         for(int i=0; i<nombreDeJoueurs;i++)
         {
-            this.joueurs.add(new JoueurHumain("joueur "+(i+1), Couleur.values()[i]));
+            Scanner scJoueur = new Scanner(System.in);
+            System.out.print("Entrer votre nom du joueur "+(i+1)+" : ");
+            String nomJoueur =scJoueur.nextLine();
+            this.joueurs.add(new JoueurHumain(nomJoueur, Couleur.values()[i]));
             this.joueurs.get(i).setCaseDeDepart(this.plateau.getChemin().get(i*13));
             for(int k=0;k<this.plateau.getEcurie().size();k++)
             {
