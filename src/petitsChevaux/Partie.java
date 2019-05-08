@@ -49,7 +49,8 @@ public class Partie
             {
                 throw(new PasDeJoueursException());
             }
-            for (int i = 0; i < nombreDeJoueurs; i++) {
+            for (int i = 0; i < nombreDeJoueurs; i++)
+            {
                 Scanner scJoueur = new Scanner(System.in);
                 System.out.print("Entrer votre nom du joueur " + (i + 1) + " : ");
                 String nomJoueur = scJoueur.nextLine();
@@ -63,7 +64,20 @@ public class Partie
                     }
                 }
             }
+            for(int i=nombreDeJoueurs;i<4;i++)
+            {
+                this.joueurs.add(new JoueurBot("Bot "+(i-nombreDeJoueurs+1), Couleur.values()[i]));
+                this.joueurs.get(i).setCaseDeDepart(this.plateau.getChemin().get(i * 13));
+                for (int k = 0; k < this.plateau.getEcurie().size(); k++) {
+                    for (int j = 0; j < this.joueurs.get(i).getChevaux().size(); j++) {
+                        if (this.plateau.getEcurie().get(k).getCouleur() == this.joueurs.get(i).getCouleur()) {
+                            this.plateau.getEcurie().get(k).ajouteCheval(this.joueurs.get(i).getChevaux().get(j));
+                        }
+                    }
+                }
+            }
         }
+
         catch (PasDeJoueursException a)
         {
             System.out.println("Il n'y a pas de joueur");
