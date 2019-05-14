@@ -1,5 +1,6 @@
 package petitsChevaux;
 
+import java.util.Comparator;
 import java.util.Scanner;
 
 import java.util.ArrayList;
@@ -45,6 +46,11 @@ public class Partie
     {
         try
         {
+            ArrayList <Couleur> couleurDisponible = new ArrayList<Couleur>();
+            couleurDisponible.add(Couleur.JAUNE);
+            couleurDisponible.add(Couleur.ROUGE);
+            couleurDisponible.add(Couleur.BLEU);
+            couleurDisponible.add(Couleur.VERT);
             if(nombreDeJoueurs<=0)
             {
                 throw(new PasDeJoueursException());
@@ -52,9 +58,38 @@ public class Partie
             for (int i = 0; i < nombreDeJoueurs; i++)
             {
                 Scanner scJoueur = new Scanner(System.in);
+                Scanner scCouleur = new Scanner(System.in);
                 System.out.print("Entrer votre nom du joueur " + (i + 1) + " : ");
                 String nomJoueur = scJoueur.nextLine();
-                this.joueurs.add(new JoueurHumain(nomJoueur, Couleur.values()[i]));
+                for(int j=0;j<couleurDisponible.size();j++)
+                {
+                    if(couleurDisponible.get(j).getSymbol()=='R')
+                    {
+                        System.out.println((j+1)+"- Rouge");
+                    }
+                    else if(couleurDisponible.get(j).getSymbol()=='J')
+                    {
+                        System.out.println((j+1)+"- Jaune");
+                    }
+                    else if(couleurDisponible.get(j).getSymbol()=='B')
+                    {
+                        System.out.println((j+1)+"- Bleu");
+                    }
+                    else if(couleurDisponible.get(j).getSymbol()=='V')
+                    {
+                        System.out.println((j+1)+"- Vert");
+                    }
+                }
+                System.out.print("Choix de la couleur pour le joueur "+(i+1)+" : ");
+                int choixCouleur = scCouleur.nextInt();
+                while(choixCouleur<1 || choixCouleur>couleurDisponible.size())
+                {
+                    System.out.println("Cette couleur n'est pas disponible");
+                    System.out.print("Choix de la couleur pour le joueur "+(i+1)+": ");
+                    choixCouleur = scCouleur.nextInt();
+                }
+                this.joueurs.add(new JoueurHumain(nomJoueur, couleurDisponible.get(choixCouleur-1)));
+                couleurDisponible.remove(choixCouleur-1);
                 this.joueurs.get(i).setCaseDeDepart(this.plateau.getChemin().get(i * 13));
                 for (int k = 0; k < this.plateau.getEcurie().size(); k++) {
                     for (int j = 0; j < this.joueurs.get(i).getChevaux().size(); j++) {
@@ -66,7 +101,7 @@ public class Partie
             }
             for(int i=nombreDeJoueurs;i<4;i++)
             {
-                this.joueurs.add(new JoueurBot("Bot "+(i-nombreDeJoueurs+1), Couleur.values()[i]));
+                this.joueurs.add(new JoueurBot("Bot "+(i-nombreDeJoueurs+1), couleurDisponible.get(i-nombreDeJoueurs)));
                 this.joueurs.get(i).setCaseDeDepart(this.plateau.getChemin().get(i * 13));
                 for (int k = 0; k < this.plateau.getEcurie().size(); k++) {
                     for (int j = 0; j < this.joueurs.get(i).getChevaux().size(); j++) {
@@ -76,6 +111,8 @@ public class Partie
                     }
                 }
             }
+            System.out.println("------------------------------------------------------------------------------------------");
+            System.out.println("------------------------------------------------------------------------------------------");
         }
 
         catch (PasDeJoueursException a)
@@ -84,8 +121,9 @@ public class Partie
             throw a;
         }
         setJoueurCourant(this.joueurs.get((int)(Math.random()*(this.joueurs.size()))));
+        Comparator<Joueur>byRanking  = Comparator.comparing(Joueur::getCouleur);
+        this.joueurs.sort(byRanking);
     }
-
     /**
      * initialise un nouveau plateau (instanciation)
      */
@@ -109,148 +147,156 @@ public class Partie
      */
     public void JouerUnTour()
     {
-        System.out.println(this.joueurCourant.getNom()+" joue !");
-        lanceDe();
-        System.out.println(this.joueurCourant.getNom()+" joue et fait un "+this.de);
-        Pion pionJouer=this.joueurCourant.choisirPion(this.de,this.plateau);
-
-        int endroitPionJouer=0;
-        Boolean pionDejaJouer=false;
-
-        for(int i=0;i<this.plateau.getEcurie().size();i++)
+        int compteur=0;
+        do
         {
-            if(this.plateau.getEcurie().get(i).getChevaux().contains(pionJouer))
+            System.out.println("------------------------------------------------------------------------------------------");
+            System.out.println("------------------------------------------------------------------------------------------");
+            if(this.de==6)
             {
-                endroitPionJouer=1;
+                compteur=1;
+                System.out.println(this.getJoueurCourant().getNom()+" rejoue !");
             }
-        }
-        for(int i=0;i<this.plateau.getChemin().size();i++)
-        {
-            if(this.plateau.getChemin().get(i).getChevaux().contains(pionJouer))
+            System.out.println(this.joueurCourant.getNom()+" joue !");
+            lanceDe();
+            System.out.println(this.joueurCourant.getNom()+" joue et fait un "+this.de);
+            Pion pionJouer=this.joueurCourant.choisirPion(this.de,this.plateau);
+
+            int endroitPionJouer=0;
+            Boolean pionDejaJouer=false;
+
+            for(int i=0;i<this.plateau.getEcurie().size();i++)
             {
-                endroitPionJouer=2;
-            }
-        }
-        for(int i=0;i<this.plateau.getEchelles().size();i++)
-        {
-            for(int j=0;j<this.plateau.getEchelles().get(i).size();j++)
-            {
-                if(this.plateau.getEchelles().get(i).get(j).getChevaux().contains(pionJouer))
+                if(this.plateau.getEcurie().get(i).getChevaux().contains(pionJouer))
                 {
-                    endroitPionJouer=3;
+                    endroitPionJouer=1;
                 }
             }
-        }
-        switch(endroitPionJouer)
-        {
-            case (0):
+            for(int i=0;i<this.plateau.getChemin().size();i++)
             {
-                System.out.println("Vous ne pouvez pas jouer de pions");
-                break;
-            }
-            case (1):
-            {
-                try
+                if(this.plateau.getChemin().get(i).getChevaux().contains(pionJouer))
                 {
-                    for (int j = 0; j < this.plateau.getEcurie().size(); j++) {
-                        for (int k = 0; k < this.plateau.getEcurie().get(j).getChevaux().size(); k++) {
-                            if (pionJouer == this.plateau.getEcurie().get(j).getChevaux().get(k)) {
-                                this.plateau.getEcurie().get(j).getChevaux().remove(k);
-                                if (!this.joueurCourant.getCaseDeDepart().peutSArreter(pionJouer)) {
-                                    mangerLesPions(this.joueurCourant.getCaseDeDepart());
+                    endroitPionJouer=2;
+                }
+            }
+            for(int i=0;i<this.plateau.getEchelles().size();i++)
+            {
+                for(int j=0;j<this.plateau.getEchelles().get(i).size();j++)
+                {
+                    if(this.plateau.getEchelles().get(i).get(j).getChevaux().contains(pionJouer))
+                    {
+                        endroitPionJouer=3;
+                    }
+                }
+            }
+            switch(endroitPionJouer)
+            {
+                case (0):
+                {
+                    System.out.println("Vous ne pouvez pas jouer de pions");
+                    break;
+                }
+                case (1):
+                {
+                    try
+                    {
+                        for (int j = 0; j < this.plateau.getEcurie().size(); j++) {
+                            for (int k = 0; k < this.plateau.getEcurie().get(j).getChevaux().size(); k++) {
+                                if (pionJouer == this.plateau.getEcurie().get(j).getChevaux().get(k)) {
+                                    this.plateau.getEcurie().get(j).getChevaux().remove(k);
+                                    if (!this.joueurCourant.getCaseDeDepart().peutSArreter(pionJouer)) {
+                                        mangerLesPions(this.joueurCourant.getCaseDeDepart());
+                                    }
+                                    this.plateau.deplacerPion(pionJouer, this.joueurCourant.getCaseDeDepart());
                                 }
-                                this.plateau.deplacerPion(pionJouer, this.joueurCourant.getCaseDeDepart());
                             }
                         }
                     }
-                }
-                catch(CasePleineException a)
-                {
-                    System.err.println(a);
-                }
-                break;
-            }
-            case (2):
-            {
-                for(int l=0;l<this.plateau.getChemin().size();l++) {
-                    if(pionDejaJouer)
+                    catch(CasePleineException a)
                     {
-                        break;
+                        System.err.println(a);
                     }
-                    for (int m = 0; m < this.plateau.getChemin().get(l).getChevaux().size(); m++) {
-                        if (this.plateau.getChemin().get(l).getChevaux().contains(pionJouer)) {
-                            this.plateau.getChemin().get(l).getChevaux().remove(m);
-                            if(l+1<55)
-                            {
-                                if(this.getJoueurCourant().getCaseDeDepart()==this.plateau.getChemin().get(l+1))
-                                {
-                                    for(int o=0;o<this.plateau.getEchelles().size();o++)
-                                    {
-                                        if(this.plateau.getEchelles().get(o).get(0).getCouleur()==this.joueurCourant.getCouleur())
-                                        {
-                                            this.plateau.getEchelles().get(o).get(0).ajouteCheval(pionJouer);
-                                            pionDejaJouer=true;
-                                        }
-                                    }
-                                }
-                            }
-                            if (l+1>55)
-                            {
-                                if(this.getJoueurCourant().getCaseDeDepart()==this.plateau.getChemin().get(0))
-                                {
-                                    for(int o=0;o<this.plateau.getEchelles().size();o++)
-                                    {
-                                        if(this.plateau.getEchelles().get(o).get(0).getCouleur()==this.joueurCourant.getCouleur())
-                                        {
-                                            this.plateau.getEchelles().get(o).get(0).ajouteCheval(pionJouer);
-                                            pionDejaJouer=true;
-                                        }
-                                    }
-                                }
-                            }
-                            if (l + this.de > 55 && !pionDejaJouer) {
-                                if (!this.plateau.getChemin().get(l + this.de - 55).getChevaux().isEmpty()) {
-                                    mangerLesPions(this.plateau.getChemin().get(l + this.de - 55));
-                                }
-                                this.plateau.getChemin().get(l + this.de - 55).ajouteCheval(pionJouer);
-                                pionDejaJouer=true;
-                            } else if(l +this.de<=55 && !pionDejaJouer){
-                                if (!this.plateau.getChemin().get(l + this.de).getChevaux().isEmpty()) {
-                                    mangerLesPions(this.plateau.getChemin().get(l + this.de));
-                                }
-                                this.plateau.getChemin().get(l + this.de).ajouteCheval(pionJouer);
-                                pionDejaJouer=true;
-                            }
-                        }
-                    }
+                    break;
                 }
-                break;
-            }
-            case (3):
-            {
-                for(int i=0;i<this.plateau.getEchelles().size();i++)
+                case (2):
                 {
-                    for(int j=0;j<this.plateau.getEchelles().get(i).size();j++)
-                    {
-                        if(this.plateau.getEchelles().get(i).get(j).getChevaux().contains(pionJouer) && !pionDejaJouer)
+                    for(int l=0;l<this.plateau.getChemin().size();l++) {
+                        if(pionDejaJouer)
                         {
-                            this.plateau.getEchelles().get(i).get(j).getChevaux().remove(pionJouer);
-                            this.plateau.getEchelles().get(i).get(j+1).ajouteCheval(pionJouer);
-                            if(this.plateau.getEchelles().get(i).get(j+1)==this.plateau.getEchelles().get(i).get(5))
-                            {
-                                this.plateau.getEchelles().get(i).get(j+1).getChevaux().remove(pionJouer);
-                                this.joueurCourant.getChevaux().remove(pionJouer);
-                                System.out.println("le pion a été retiré du jeu !");
+                            break;
+                        }
+                        for (int m = 0; m < this.plateau.getChemin().get(l).getChevaux().size(); m++) {
+                            if (this.plateau.getChemin().get(l).getChevaux().contains(pionJouer)) {
+                                this.plateau.getChemin().get(l).getChevaux().remove(m);
+                                if(this.getJoueurCourant().getCaseDeDepart()==this.plateau.getChemin().get((l+1)%56))
+                                {
+                                    for(int o=0;o<this.plateau.getEchelles().size();o++)
+                                    {
+                                        if(this.plateau.getEchelles().get(o).get(0).getCouleur()==this.joueurCourant.getCouleur())
+                                        {
+                                                this.plateau.getEchelles().get(o).get(0).ajouteCheval(pionJouer);
+                                                pionDejaJouer=true;
+                                        }
+                                    }
+                                }
+                                if (!pionDejaJouer)
+                                {
+                                    if (!this.plateau.getChemin().get((l + this.de)%56).getChevaux().isEmpty())
+                                    {
+                                        mangerLesPions(this.plateau.getChemin().get((l + this.de)%56));
+                                    }
+                                    this.plateau.getChemin().get((l + this.de)%56).ajouteCheval(pionJouer);
+                                    pionDejaJouer=true;
+                                }
                             }
-                            pionDejaJouer=true;
+                        }
+                    }
+                    break;
+                }
+                case (3):
+                {
+                    for(int i=0;i<this.plateau.getEchelles().size();i++)
+                    {
+                        for(int j=0;j<this.plateau.getEchelles().get(i).size();j++)
+                        {
+                            if(this.plateau.getEchelles().get(i).get(j).getChevaux().contains(pionJouer) && !pionDejaJouer)
+                            {
+                                this.plateau.getEchelles().get(i).get(j).getChevaux().remove(pionJouer);
+                                this.plateau.getEchelles().get(i).get(j+1).ajouteCheval(pionJouer);
+                                if(this.plateau.getEchelles().get(i).get(j+1)==this.plateau.getEchelles().get(i).get(5))
+                                {
+                                    this.plateau.getEchelles().get(i).get(j+1).getChevaux().remove(pionJouer);
+                                    this.joueurCourant.getChevaux().remove(pionJouer);
+                                    System.out.println("le pion a été retiré du jeu !");
+                                }
+                                pionDejaJouer=true;
+                            }
+                        }
+                    }
+                    break;
+                }
+            }
+            this.plateau.afficher();
+            if(this.de!=6)
+            {
+                for(int i=0;i<joueurs.size();i++)
+                {
+                    if(this.joueurCourant==joueurs.get(i))
+                    {
+                        if(i==this.joueurs.size()-1)
+                        {
+                            this.joueurCourant=joueurs.get(0);
+                            break;
+                        }
+                        else {
+                            this.joueurCourant=joueurs.get(i+1);
+                            break;
                         }
                     }
                 }
-                break;
             }
-        }
-        this.plateau.afficher();
-        if(this.de!=6)
+        }while(this.de==6 && compteur==0);
+        if(compteur==1)
         {
             for(int i=0;i<joueurs.size();i++)
             {

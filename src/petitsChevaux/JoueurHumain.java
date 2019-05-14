@@ -37,56 +37,25 @@ public class JoueurHumain extends Joueur
                     {
                         if(plateau.getChemin().get(k).getChevaux().contains(this.getChevaux().get(i)))
                         {
-                            if(k+1<=55)
+                            if(plateau.getChemin().get((k+1)%56)==this.getCaseDeDepart() && plateau.getChemin().get(k%56).getChevaux().contains(this.getChevaux().get(i)) && valeurDe==1)
                             {
-                                if(plateau.getChemin().get(k+1)==this.getCaseDeDepart() && plateau.getChemin().get(k).getChevaux().contains(this.getChevaux().get(i)) && valeurDe==1)
+                                for(int p=0;p<plateau.getEchelles().size();p++)
                                 {
-                                    for(int p=0;p<plateau.getEchelles().size();p++)
+                                    if(this.getCouleur()==plateau.getEchelles().get(p).get(0).getCouleur() && plateau.getEchelles().get(p).get(0).getChevaux().isEmpty())
                                     {
-                                        if(this.getCouleur()==plateau.getEchelles().get(p).get(0).getCouleur() && plateau.getEchelles().get(p).get(0).getChevaux().isEmpty())
-                                        {
-                                            pionBougeables.add(this.getChevaux().get(i));
-                                        }
-                                    }
-                                }
-                            }
-                            else
-                            {
-                                if(plateau.getChemin().get(0)==this.getCaseDeDepart() && plateau.getChemin().get(k).getChevaux().contains(this.getChevaux().get(i)) && valeurDe==1)
-                                {
-                                    for(int p=0;p<plateau.getEchelles().size();p++)
-                                    {
-                                        if(this.getCouleur()==plateau.getEchelles().get(p).get(0).getCouleur() && plateau.getEchelles().get(p).get(0).getChevaux().isEmpty())
-                                        {
-                                            pionBougeables.add(this.getChevaux().get(i));
-                                        }
+                                        pionBougeables.add(this.getChevaux().get(i));
                                     }
                                 }
                             }
                             for(int m=1;m<valeurDe+1;m++)
                             {
-
-                                if(k+m<=55)
+                                if(m==valeurDe && plateau.getChemin().get(0)!=this.getCaseDeDepart())
                                 {
-                                    if(m==valeurDe && plateau.getChemin().get(k+1)!=this.getCaseDeDepart())
-                                    {
-                                        pionBougeables.add(this.getChevaux().get(i));
-                                    }
-                                    else if (!plateau.getChemin().get(k+m).peutPasser(this.getChevaux().get(i)) || plateau.getChemin().get(k+m)==this.getCaseDeDepart())
-                                    {
-                                        break;
-                                    }
+                                    pionBougeables.add(this.getChevaux().get(i));
                                 }
-                                if(k+m>55)
+                                else if (!plateau.getChemin().get((k+m)%56).peutPasser(this.getChevaux().get(i)) || plateau.getChemin().get((k+m)%56)==this.getCaseDeDepart())
                                 {
-                                    if(m==valeurDe && plateau.getChemin().get(0)!=this.getCaseDeDepart())
-                                    {
-                                        pionBougeables.add(this.getChevaux().get(i));
-                                    }
-                                    else if (!plateau.getChemin().get(k+m-56).peutPasser(this.getChevaux().get(i)) || plateau.getChemin().get(k+m-56)==this.getCaseDeDepart())
-                                    {
-                                        break;
-                                    }
+                                    break;
                                 }
                             }
                         }
