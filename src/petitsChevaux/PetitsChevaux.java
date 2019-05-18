@@ -14,7 +14,8 @@ public class PetitsChevaux
 
     /**
      * méthode main du programme
-     * @param argc
+     * @param argc peut prendre des arguments
+     * @throws PasDeJoueursException lève une exception lorsque il n'y a pas de joueurs
      */
     public static void main(String argc[]) throws PasDeJoueursException {
         Joueur JoueurQuiRejoue;
@@ -45,7 +46,7 @@ public class PetitsChevaux
             Scanner scNombreJoueur = new Scanner(System.in);
             System.out.print("Entrer le nombre de joueurs : ");
             int NombreDeJoueurs = scNombreJoueur.nextInt();
-            while(NombreDeJoueurs<1 || NombreDeJoueurs>4)
+            while(NombreDeJoueurs<0 || NombreDeJoueurs>4)
             {
                 System.out.println("le nombre de joueurs n'est pas compris entre 0 et 4");
                 System.out.print("Entrer le nombre de joueurs : ");

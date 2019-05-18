@@ -4,6 +4,7 @@ import java.util.Comparator;
 import java.util.Scanner;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 public class Partie
 {
@@ -41,6 +42,7 @@ public class Partie
     /**
      * initialise tous les joueurs de la partie (instanciation) et leurs chevaux
      * @param nombreDeJoueurs elle prend en paramètre le nombre de joueurs humains à instancier
+     * @throws PasDeJoueursException Une exception peut être levée si le nombre de joueurs  est égal à 0
      */
     public void initialiserJoueur(int nombreDeJoueurs) throws PasDeJoueursException
     {
@@ -51,7 +53,7 @@ public class Partie
             couleurDisponible.add(Couleur.ROUGE);
             couleurDisponible.add(Couleur.BLEU);
             couleurDisponible.add(Couleur.VERT);
-            if(nombreDeJoueurs<=0)
+            if(nombreDeJoueurs<0)
             {
                 throw(new PasDeJoueursException());
             }
@@ -63,17 +65,17 @@ public class Partie
                 String nomJoueur = scJoueur.nextLine();
                 for(int j=0;j<couleurDisponible.size();j++)
                 {
-                    if(couleurDisponible.get(j).getSymbol()=='R')
-                    {
-                        System.out.println((j+1)+"- Rouge");
-                    }
-                    else if(couleurDisponible.get(j).getSymbol()=='J')
+                    if(couleurDisponible.get(j).getSymbol()=='J')
                     {
                         System.out.println((j+1)+"- Jaune");
                     }
                     else if(couleurDisponible.get(j).getSymbol()=='B')
                     {
                         System.out.println((j+1)+"- Bleu");
+                    }
+                    else if(couleurDisponible.get(j).getSymbol()=='R')
+                    {
+                        System.out.println((j + 1) + "- Rouge");
                     }
                     else if(couleurDisponible.get(j).getSymbol()=='V')
                     {
@@ -90,7 +92,7 @@ public class Partie
                 }
                 this.joueurs.add(new JoueurHumain(nomJoueur, couleurDisponible.get(choixCouleur-1)));
                 couleurDisponible.remove(choixCouleur-1);
-                this.joueurs.get(i).setCaseDeDepart(this.plateau.getChemin().get(i * 13));
+
                 for (int k = 0; k < this.plateau.getEcurie().size(); k++) {
                     for (int j = 0; j < this.joueurs.get(i).getChevaux().size(); j++) {
                         if (this.plateau.getEcurie().get(k).getCouleur() == this.joueurs.get(i).getCouleur()) {
@@ -111,6 +113,13 @@ public class Partie
                     }
                 }
             }
+            setJoueurCourant(this.joueurs.get((int)(Math.random()*(this.joueurs.size()))));
+            Comparator<Joueur>byRanking  = Comparator.comparing(Joueur::getCouleur);
+            this.joueurs.sort(byRanking);
+            for(int i=0;i<4;i++)
+            {
+                this.joueurs.get(i).setCaseDeDepart(this.plateau.getChemin().get(i * 13));
+            }
             System.out.println("------------------------------------------------------------------------------------------");
             System.out.println("------------------------------------------------------------------------------------------");
         }
@@ -120,9 +129,6 @@ public class Partie
             System.out.println("Il n'y a pas de joueur");
             throw a;
         }
-        setJoueurCourant(this.joueurs.get((int)(Math.random()*(this.joueurs.size()))));
-        Comparator<Joueur>byRanking  = Comparator.comparing(Joueur::getCouleur);
-        this.joueurs.sort(byRanking);
     }
     /**
      * initialise un nouveau plateau (instanciation)
@@ -160,6 +166,14 @@ public class Partie
             System.out.println(this.joueurCourant.getNom()+" joue !");
             lanceDe();
             System.out.println(this.joueurCourant.getNom()+" joue et fait un "+this.de);
+            try
+            {
+                TimeUnit.SECONDS.sleep(3);
+            }
+            catch (InterruptedException a)
+            {
+                System.out.println("Problème embarrasant !");
+            }
             Pion pionJouer=this.joueurCourant.choisirPion(this.de,this.plateau);
 
             int endroitPionJouer=0;
@@ -194,6 +208,14 @@ public class Partie
                 case (0):
                 {
                     System.out.println("Vous ne pouvez pas jouer de pions");
+                    try
+                    {
+                        TimeUnit.SECONDS.sleep(3);
+                    }
+                    catch (InterruptedException a)
+                    {
+                        System.out.println("Problème embarrasant !");
+                    }
                     break;
                 }
                 case (1):
@@ -267,7 +289,7 @@ public class Partie
                                 {
                                     this.plateau.getEchelles().get(i).get(j+1).getChevaux().remove(pionJouer);
                                     this.joueurCourant.getChevaux().remove(pionJouer);
-                                    System.out.println("le pion a été retiré du jeu !");
+                                    System.out.println("le pion a terminé sa course!");
                                 }
                                 pionDejaJouer=true;
                             }
@@ -277,6 +299,14 @@ public class Partie
                 }
             }
             this.plateau.afficher();
+            try
+            {
+                TimeUnit.SECONDS.sleep(3);
+            }
+            catch (InterruptedException a)
+            {
+                System.out.println("Problème embarrasant !");
+            }
             if(this.de!=6)
             {
                 for(int i=0;i<joueurs.size();i++)
@@ -387,6 +417,7 @@ public class Partie
             {
                 if (this.plateau.getEcurie().get(j).getCouleur()==CaseManger.getChevaux().get(i).getCouleur())
                 {
+                    System.out.println("le pion "+(i+1)+" a été mangé");
                     this.plateau.getEcurie().get(j).ajouteCheval(CaseManger.getChevaux().get(i));
                 }
             }

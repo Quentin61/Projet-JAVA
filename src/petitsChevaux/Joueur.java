@@ -82,7 +82,7 @@ public abstract class Joueur
 
     /**
      * méthode qui permet de mettre/initialiser le nom du joueur
-     * @param nom
+     * @param nom prend en paramètre le nouveau nom du joueur
      */
     public void setNom(String nom)
     {

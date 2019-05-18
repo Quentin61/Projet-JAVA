@@ -97,7 +97,7 @@ public class Plateau
             }
             else
             {
-                ecurie1+="[P]";
+                ecurie1+="["+this.ecurie.get(0).getChevaux().get(0).getCouleur().getSymbol()+"]";
             }
         }
         for(int i=0;i<this.ecurie.get(1).getChevaux().size();i++)
@@ -108,7 +108,7 @@ public class Plateau
             }
             else
             {
-                ecurie2+="[P]";
+                ecurie2+="["+this.ecurie.get(1).getChevaux().get(0).getCouleur().getSymbol()+"]";
             }
         }
         for(int i=0;i<this.ecurie.get(2).getChevaux().size();i++)
@@ -119,7 +119,7 @@ public class Plateau
             }
             else
             {
-                ecurie3+="[P]";
+                ecurie3+="["+this.ecurie.get(2).getChevaux().get(0).getCouleur().getSymbol()+"]";
             }
         }
         for(int i=0;i<this.ecurie.get(3).getChevaux().size();i++)
@@ -130,7 +130,7 @@ public class Plateau
             }
             else
             {
-                ecurie4+="[P]";
+                ecurie4+="["+this.ecurie.get(3).getChevaux().get(0).getCouleur().getSymbol()+"]";
             }
         }
         for(int i=0;i<this.chemin.size();i++)
@@ -141,7 +141,7 @@ public class Plateau
                 }
                 else
                 {
-                    plateau+="[P]";
+                    plateau+="["+this.chemin.get(i).getChevaux().get(0).getCouleur().getSymbol()+"]";
                 }
         }
         for(int j=0;j<this.echelles.get(0).size();j++)
@@ -151,7 +151,7 @@ public class Plateau
                 couloir1+="[-]";
             }
             else {
-                couloir1+="[P]";
+                couloir1+="["+this.getEchelles().get(0).get(j).getChevaux().get(0).getCouleur().getSymbol()+"]";
             }
         }
         for(int j=0;j<this.echelles.get(1).size();j++)
@@ -161,7 +161,7 @@ public class Plateau
                 couloir2+="[-]";
             }
             else {
-                couloir2+="[P]";
+                couloir2+="["+this.getEchelles().get(1).get(j).getChevaux().get(0).getCouleur().getSymbol()+"]";
             }
         }
         for(int j=0;j<this.echelles.get(2).size();j++)
@@ -171,7 +171,7 @@ public class Plateau
                 couloir3+="[-]";
             }
             else {
-                couloir3+="[P]";
+                couloir3+="["+this.getEchelles().get(2).get(j).getChevaux().get(0).getCouleur().getSymbol()+"]";
             }
         }
         for(int j=0;j<this.echelles.get(3).size();j++)
@@ -181,18 +181,18 @@ public class Plateau
                 couloir4+="[-]";
             }
             else {
-                couloir4+="[P]";
+                couloir4+="["+this.getEchelles().get(3).get(j).getChevaux().get(0).getCouleur().getSymbol()+"]";
             }
         }
-        System.out.println("ecurie 1 : "+ecurie1);
-        System.out.println("ecurie 2 : "+ecurie2);
-        System.out.println("ecurie 3 : "+ecurie3);
-        System.out.println("ecurie 4 : "+ecurie4);
+        System.out.println("ecurie Jaune : "+ecurie1);
+        System.out.println("ecurie Bleu  : "+ecurie2);
+        System.out.println("ecurie Rouge : "+ecurie3);
+        System.out.println("ecurie Vert  : "+ecurie4);
         System.out.println("plateau : "+plateau);
-        System.out.println("echelle 1 : "+couloir1);
-        System.out.println("echelle 2 : "+couloir2);
-        System.out.println("echelle 3 : "+couloir3);
-        System.out.println("echelle 4 : "+couloir4);
+        System.out.println("echelle Jaune : "+couloir1);
+        System.out.println("echelle Bleu  : "+couloir2);
+        System.out.println("echelle Rouge : "+couloir3);
+        System.out.println("echelle Vert  : "+couloir4);
     }
 
     /**
@@ -204,6 +204,20 @@ public class Plateau
      */
     public void deplacerPion(Pion pionAdeplacer,Case caseDeDeplacement)
     {
-        caseDeDeplacement.ajouteCheval(pionAdeplacer);
+        try
+        {
+            if(caseDeDeplacement.getChevaux().size()>=4)
+            {
+                throw(new CasePleineException("la case est pleine"));
+            }
+            else
+            {
+                caseDeDeplacement.ajouteCheval(pionAdeplacer);
+            }
+        }
+        catch (CasePleineException a)
+        {
+            System.err.println(a);
+        }
     }
 }

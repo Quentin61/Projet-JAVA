@@ -49,11 +49,11 @@ public class JoueurHumain extends Joueur
                             }
                             for(int m=1;m<valeurDe+1;m++)
                             {
-                                if(m==valeurDe && plateau.getChemin().get(0)!=this.getCaseDeDepart())
+                                if(m==valeurDe && plateau.getChemin().get((k+m)%56)!=this.getCaseDeDepart())
                                 {
                                     pionBougeables.add(this.getChevaux().get(i));
                                 }
-                                else if (!plateau.getChemin().get((k+m)%56).peutPasser(this.getChevaux().get(i)) || plateau.getChemin().get((k+m)%56)==this.getCaseDeDepart())
+                                if (!plateau.getChemin().get((k+m)%56).peutPasser(this.getChevaux().get(i)) || plateau.getChemin().get((k+m)%56)==this.getCaseDeDepart())
                                 {
                                     break;
                                 }

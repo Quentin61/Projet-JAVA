@@ -39,6 +39,7 @@ public abstract class Case
      * @see Pion
      * @param pion elle prend en paramètre un pion
      * @return elle retourne un boolean qui indique si le pion peut passer par la case ou non
+     * @throws CasePleineException peut lever un exception si la case est pleine (plus de 4 joueurs)
      */
     public abstract boolean peutPasser(Pion pion) throws CasePleineException;
 
@@ -47,6 +48,7 @@ public abstract class Case
      * @see Pion
      * @param pion elle prend en paramètre un pion
      * @return elle retourne un boolean qui indique si le pion peut s'arreter sur la case (être stocké)
+     * @throws CasePleineException peut lever un exception si la case est pleine (plus de 4 joueurs)
      */
     public abstract boolean peutSArreter(Pion pion) throws CasePleineException;
 
