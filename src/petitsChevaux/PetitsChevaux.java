@@ -15,7 +15,7 @@ public class PetitsChevaux
     /**
      * méthode main du programme
      * @param argc peut prendre des arguments
-     * @throws PasDeJoueursException lève une exception lorsque il n'y a pas de joueurs
+     * @throws PasDeJoueursException lève une exception lorsque il n'y a pas de joueur
      */
     public static void main(String argc[]) throws PasDeJoueursException {
         Partie partie= new Partie();
