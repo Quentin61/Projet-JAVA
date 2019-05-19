@@ -18,7 +18,6 @@ public class PetitsChevaux
      * @throws PasDeJoueursException lève une exception lorsque il n'y a pas de joueurs
      */
     public static void main(String argc[]) throws PasDeJoueursException {
-        Joueur JoueurQuiRejoue;
         Partie partie= new Partie();
         partie.initialiserPlateau();
         Scanner scChoix = new Scanner(System.in);
