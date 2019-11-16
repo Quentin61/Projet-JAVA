@@ -166,19 +166,20 @@ public class Partie
             System.out.println(this.joueurCourant.getNom()+" joue !");
             lanceDe();
             System.out.println(this.joueurCourant.getNom()+" joue et fait un "+this.de);
-            try
+            /*try
             {
                 TimeUnit.SECONDS.sleep(3);
             }
             catch (InterruptedException a)
             {
                 System.out.println("Problème embarrasant !");
-            }
+            }*/
             Pion pionJouer=this.joueurCourant.choisirPion(this.de,this.plateau);
 
-            int endroitPionJouer=0;
-            Boolean pionDejaJouer=false;
+            int endroitPionJouer=0; //variable qui va determiner où le pio sera joué//
+            Boolean pionDejaJouer=false; //on ajoute un variable qui empêche le pion d'être déplacé plusieurs fois dans la même boucle//
 
+            //Recherche qui verifie si le pion joué est dans l'écurie//
             for(int i=0;i<this.plateau.getEcurie().size();i++)
             {
                 if(this.plateau.getEcurie().get(i).getChevaux().contains(pionJouer))
@@ -186,6 +187,7 @@ public class Partie
                     endroitPionJouer=1;
                 }
             }
+            //Recherche qui verifie si le pion joué est dans le chemin//
             for(int i=0;i<this.plateau.getChemin().size();i++)
             {
                 if(this.plateau.getChemin().get(i).getChevaux().contains(pionJouer))
@@ -193,6 +195,7 @@ public class Partie
                     endroitPionJouer=2;
                 }
             }
+            //Recherche qui verifie si le pion joué est dans les échelles//
             for(int i=0;i<this.plateau.getEchelles().size();i++)
             {
                 for(int j=0;j<this.plateau.getEchelles().get(i).size();j++)
@@ -208,14 +211,14 @@ public class Partie
                 case (0):
                 {
                     System.out.println("Vous ne pouvez pas jouer de pions");
-                    try
+                    /*try
                     {
                         TimeUnit.SECONDS.sleep(3);
                     }
                     catch (InterruptedException a)
                     {
                         System.out.println("Problème embarrasant !");
-                    }
+                    }*/
                     break;
                 }
                 case (1):
@@ -299,14 +302,14 @@ public class Partie
                 }
             }
             this.plateau.afficher();
-            try
+            /*try
             {
                 TimeUnit.SECONDS.sleep(3);
             }
             catch (InterruptedException a)
             {
                 System.out.println("Problème embarrasant !");
-            }
+            }*/
             if(this.de!=6)
             {
                 for(int i=0;i<joueurs.size();i++)
@@ -325,7 +328,7 @@ public class Partie
                     }
                 }
             }
-        }while(this.de==6 && compteur==0);
+        }while(this.de==6 && compteur==0); //boucle qui permet de verifier que le joueur ne rejoue pas une troisième fois si un 6 est tiré//
         if(compteur==1)
         {
             for(int i=0;i<joueurs.size();i++)

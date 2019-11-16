@@ -1,0 +1,51 @@
+import java.util.ArrayList;
+
+public abstract class Case
+{
+    /**
+     *  La liste contenant tous les pions de la case
+     * @see Pion
+     */
+    protected ArrayList<Pion> chevaux;
+    public Case()
+    {
+        this.chevaux=new ArrayList<Pion>();
+    }
+
+    /**
+     * retourne un tableau contenant tous les chevaux de la classe
+     * @see Pion
+     * @return  elle retourne un arrayList de Pion
+     */
+    public ArrayList<Pion> getChevaux()
+    {
+        return this.chevaux;
+    }
+
+    /**
+     * ajoute un cheval à la case dans un tableau de Pion
+     * @see Pion
+     * @param nouveauCheval elle prend en paramêtre un Pion
+     */
+    public void ajouteCheval(Pion nouveauCheval)
+    {
+        this.chevaux.add(nouveauCheval);
+    }
+
+    /**
+     * indique si un pion peut passer par la case
+     * @see Pion
+     * @param pion elle prend en paramètre un pion
+     * @return elle retourne un boolean qui indique si le pion peut passer par la case ou non
+     */
+    public abstract boolean peutPasser(Pion pion) throws ConflitDeCouleurException;
+
+    /**
+     * indique si un pion peut s'arreter sur la case (être stoké)
+     * @see Pion
+     * @param pion elle prend en paramètre un pion
+     * @return elle retourne un boolean qui indique si le pion peut s'arreter sur la case (être stocké)
+     */
+    public abstract boolean peutSArreter(Pion pion);
+
+}

@@ -16,8 +16,9 @@ public class JoueurBot extends Joueur
         Pion pionjouer=null;
         try
         {
-            for(int i=0;i<this.getChevaux().size();i++)
+            for(int i=0;i<this.getChevaux().size();i++) // on recherche pour chaque pions du joueur si il est déplaçable dans les 3 parties du plateau//
             {
+                //recherche dans l'écurie//
                 for(int j=0;j<plateau.getEcurie().size();j++)
                 {
                     if(valeurDe==6 && plateau.getEcurie().get(j).getChevaux().contains(this.getChevaux().get(i)))
@@ -25,6 +26,7 @@ public class JoueurBot extends Joueur
                         pionBougeables.add(this.getChevaux().get(i));
                     }
                 }
+                //recherche dans le plateau//
                 for(int k=0;k<plateau.getChemin().size();k++)
                 {
                     for(int l=0;l<plateau.getChemin().get(k).getChevaux().size();l++)
@@ -41,7 +43,7 @@ public class JoueurBot extends Joueur
                                     }
                                 }
                             }
-                            for(int m=1;m<valeurDe+1;m++)
+                            for(int m=1;m<valeurDe+1;m++) //boucle qui vérifie que toutes les cases traversées sont traversables//
                             {
                                 if(m==valeurDe && plateau.getChemin().get((k+m)%56)!=this.getCaseDeDepart())
                                 {
@@ -55,6 +57,7 @@ public class JoueurBot extends Joueur
                         }
                     }
                 }
+                //recherche dans les échelles//
                 for(int m=0;m<plateau.getEchelles().size();m++)
                 {
                     if(plateau.getEchelles().get(m).get(0).getCouleur()==this.getChevaux().get(i).getCouleur())

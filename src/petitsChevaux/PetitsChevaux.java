@@ -33,7 +33,7 @@ public class PetitsChevaux
         System.out.println(" ");
         System.out.print("Votre choix : ");
         int choix = scChoix.nextInt();
-        while(choix<1 || choix>2)
+        while(choix<0 || choix>2)
         {
             System.out.println("Ce choix est indisponible");
             System.out.println(" ");

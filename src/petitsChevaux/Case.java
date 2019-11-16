@@ -17,7 +17,7 @@ public abstract class Case
     /**
      * retourne un tableau contenant tous les chevaux de la classe
      * @see Pion
-     * @return  elle retourne un arrayList de Pion
+     * @return  elle retourne un arrayList de Pion de la classe
      */
     public ArrayList<Pion> getChevaux()
     {
@@ -27,7 +27,7 @@ public abstract class Case
     /**
      * ajoute un cheval à la case dans un tableau de Pion
      * @see Pion
-     * @param nouveauCheval elle prend en paramêtre un Pion
+     * @param nouveauCheval elle prend en paramètre un Pion
      */
     public void ajouteCheval(Pion nouveauCheval)
     {
@@ -35,7 +35,7 @@ public abstract class Case
     }
 
     /**
-     * indique si un pion peut passer par la case
+     * Indique si un pion peut passer par la case
      * @see Pion
      * @param pion elle prend en paramètre un pion
      * @return elle retourne un boolean qui indique si le pion peut passer par la case ou non
